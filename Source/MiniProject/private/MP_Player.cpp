@@ -43,15 +43,18 @@ AMP_Player::AMP_Player()
 
 	ArmMesh->SetAnimationMode(EAnimationMode::AnimationBlueprint);
 
-	static ConstructorHelpers::FClassFinder<UAnimInstance> ARM_ANIM(TEXT("/Script/Engine.AnimBlueprint'/Game/_ProjectSettings/Blueprints/MP_BP_Arm.MP_BP_Arm_C'"));
+	static ConstructorHelpers::FClassFinder<UAnimInstance> ARM_ANIM(TEXT("/Script/Engine.AnimBlueprint'/Game/_ProjectSettings/Blueprints/MP_BP_Player.MP_BP_Player_C'"));
 	if (ARM_ANIM.Succeeded())
 	{
 		ArmMesh->SetAnimInstanceClass(ARM_ANIM.Class);
 	}
 
-	ArmMesh->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));
+	
+	ArmMesh->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
 
 	SetControlMode(EControlMode::THIRDPEOPLE);
+
+	GetCharacterMovement()->JumpZVelocity = 450.0f;
 
 }
 
@@ -129,6 +132,8 @@ void AMP_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	PlayerInputComponent->BindAction(TEXT("ViewChange"), EInputEvent::IE_Pressed, this, &AMP_Player::ViewChange);
+	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &AMP_Player::Jump);
+
 
 	PlayerInputComponent->BindAxis(TEXT("UpDown"), this, &AMP_Player::UpDown);
 	PlayerInputComponent->BindAxis(TEXT("LeftRight"), this, &AMP_Player::LeftRight);

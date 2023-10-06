@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "MP_Player.generated.h"
 
+
 UCLASS()
 class MINIPROJECT_API AMP_Player : public ACharacter
 {
@@ -37,6 +38,7 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 
 	UPROPERTY(VisibleAnywhere, Category = Camera)
 	USpringArmComponent* SpringArm;

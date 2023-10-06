@@ -6,6 +6,7 @@
 UMP_AnimInstance::UMP_AnimInstance()
 {
 	CurrentPawnSpeed = 0.0f;
+	IsInAir = false;
 }
 
 void UMP_AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
@@ -16,5 +17,10 @@ void UMP_AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	if (::IsValid(Pawn))
 	{
 		CurrentPawnSpeed = Pawn->GetVelocity().Size();
+		auto Character = Cast<ACharacter>(Pawn);
+		if (Character)
+		{
+			IsInAir = Character->GetMovementComponent()->IsFalling();
+		}
 	}
 }
